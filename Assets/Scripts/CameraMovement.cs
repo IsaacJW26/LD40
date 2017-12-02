@@ -5,6 +5,9 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     Vector3 target;
+    [SerializeField]
+    [Range(1f, 50f)]
+    float speed;
 
 	// Use this for initialization
 	void Start ()
@@ -13,11 +16,11 @@ public class CameraMovement : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         target = transform.position;
         target.x = Player.INSTANCE.transform.position.x;
 
-        transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, target, Time.fixedDeltaTime * speed);
 	}
 }
