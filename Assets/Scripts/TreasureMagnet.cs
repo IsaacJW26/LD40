@@ -8,7 +8,7 @@ public class TreasureMagnet : MonoBehaviour
     //maximum radius of attraction
     public const float THRESHOLD = 20f;
 
-    public const float magnitude = 10f;
+    public const float magnitude = 15f;
     Rigidbody2D rb;
     Rigidbody2D playerrb;
     Vector3 dir;
@@ -18,7 +18,7 @@ public class TreasureMagnet : MonoBehaviour
     public ContactFilter2D filter;
 
     //distance to float above other colliders
-    public const float FLOATTHRESH = 2f;
+    public const float FLOATTHRESH = 1.5f;
 
     public float floatSpeed;
 
@@ -49,8 +49,7 @@ public class TreasureMagnet : MonoBehaviour
             playerrb.AddForce(-dir * magnitude * playerrb.mass * rb.mass / Mathf.Pow(dist, 2f));
         }
         //when it is out of range of player
-        else
-        {
+        //{
             Debug.DrawRay(transform.position, Vector2.down * FLOATTHRESH);
 
             //when there is nothing below
@@ -63,6 +62,6 @@ public class TreasureMagnet : MonoBehaviour
             {
                 rb.AddForce(Vector3.down * floatSpeed);
             }
-        }
+        //}
 	}
 }
