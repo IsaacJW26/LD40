@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     {
 		if (health <= 0)
         {
-            //die
+            print("ded");
         }
 	}
 }
