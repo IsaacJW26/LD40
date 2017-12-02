@@ -25,7 +25,7 @@ public class PlayerAudio : MonoBehaviour
     public void Play(AudioClip inClip, float pitchRange)
     {
         src.clip = inClip;
-        src.pitch = 1f + Random.RandomRange(-pitchRange, pitchRange);
+        src.pitch = 1f + Random.Range(-pitchRange, pitchRange);
         src.Play();
 
     }
