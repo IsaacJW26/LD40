@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float moveSpeed = 1f;
+    public float maxSpeed = 10f;
 
     [Header("Jumping")]
     public float jumpStrength;
@@ -40,10 +41,10 @@ public class PlayerMovement : MonoBehaviour {
             Vector3 dir = new Vector3(0, jumpStrength, 0);
             GetComponent<PlayerAudio>().Play(jumpAudio, 0.1f);
             jumpStart = Time.time + jumpCD;
-            rb.AddForce((dir * moveSpeed));
+            rb.AddForce((dir));
             if (hitrb != null)
             {
-                hitrb.AddForce((-dir * moveSpeed) * hitrb.mass);
+                hitrb.AddForce((-dir) * hitrb.mass);
             }
         }
     }
@@ -54,9 +55,15 @@ public class PlayerMovement : MonoBehaviour {
         //horizontal motion
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
-        rb.AddForce((dir * moveSpeed));
-
-
+        if (Mathf.Abs(rb.velocity.x) < moveSpeed)
+        {
+            rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            dir.x = -Mathf.Sign(rb.velocity.x);
+            rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
 
