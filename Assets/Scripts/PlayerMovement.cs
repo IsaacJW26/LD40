@@ -11,11 +11,11 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpCD;
     [Tooltip("Minimun distance between object and player")]
     public float distance;
+    public AudioClip jumpAudio;
 
     float jumpStart;
 
     Rigidbody2D rb;
-
 
     public ContactFilter2D filter;
 
@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody2D>();
         jumpStart = -jumpCD;
-
     }
 	
 	// Update is called once per frame
@@ -39,14 +38,13 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetButtonDown("Jump") && jumpStart < Time.time && canJump(out hitrb))
         {
             Vector3 dir = new Vector3(0, jumpStrength, 0);
-
+            GetComponent<PlayerAudio>().Play(jumpAudio, 0.1f);
             jumpStart = Time.time + jumpCD;
             rb.AddForce((dir * moveSpeed));
             if (hitrb != null)
             {
                 hitrb.AddForce((-dir * moveSpeed) * hitrb.mass);
             }
-
         }
     }
 
