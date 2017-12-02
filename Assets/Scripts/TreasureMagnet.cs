@@ -10,12 +10,14 @@ public class TreasureMagnet : MonoBehaviour
 
     public const float magnitude = 10f;
     Rigidbody2D rb;
+    Rigidbody2D playerrb;
     Vector3 dir;
     float dist;
 
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerrb = Player.INSTANCE.GetComponent<Rigidbody2D>();
     }
 	
 	// Update is called once per frame
@@ -34,6 +36,7 @@ public class TreasureMagnet : MonoBehaviour
             //force towards player is mass times magnitude divided by distance
             //further away the player is the weaker the force
             rb.AddForce(dir * magnitude * rb.mass / dist);
+            playerrb.AddForce(-dir * magnitude * playerrb.mass / dist);
         }
         else
         {

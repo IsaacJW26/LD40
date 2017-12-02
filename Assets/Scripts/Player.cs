@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public static Player INSTANCE = null;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         if (INSTANCE == null)
         {
