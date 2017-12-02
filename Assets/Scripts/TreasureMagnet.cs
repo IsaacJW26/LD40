@@ -6,7 +6,7 @@ public class TreasureMagnet : MonoBehaviour
 {
 
     //maximum radius of attraction
-    public const float THRESHOLD = 10f;
+    public const float THRESHOLD = 20f;
 
     public const float magnitude = 10f;
     Rigidbody2D rb;
@@ -21,7 +21,7 @@ public class TreasureMagnet : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
     {
         //distance between player and this
         dist = Vector3.Distance(Player.INSTANCE.transform.position, transform.position);
@@ -35,8 +35,8 @@ public class TreasureMagnet : MonoBehaviour
 
             //force towards player is mass times magnitude divided by distance
             //further away the player is the weaker the force
-            rb.AddForce(dir * magnitude * rb.mass / dist);
-            playerrb.AddForce(-dir * magnitude * playerrb.mass / dist);
+            rb.AddForce(dir * magnitude * rb.mass * playerrb.mass / Mathf.Pow(dist, 2f));
+            playerrb.AddForce(-dir * magnitude * playerrb.mass * rb.mass / Mathf.Pow(dist, 2f));
         }
         else
         {
