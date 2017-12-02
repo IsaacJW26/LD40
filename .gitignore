@@ -33,4 +33,5 @@ Thumbs.db
 # ======== #
 # My files #
 # ======== #
-Builds/
+Builds/debug.log
+debug.log
