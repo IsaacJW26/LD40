@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
         bool jump = false;
         hit = null;
 
-        RaycastHit2D[] results = new RaycastHit2D[10];
+        RaycastHit2D[] results = new RaycastHit2D[1];
         if (Physics2D.Raycast(transform.position, Vector2.down, filter, results, distance) > 0)
         {
             jump = true;
