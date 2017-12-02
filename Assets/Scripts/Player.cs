@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    public static float health = 100;
+    public static float backpack = 0;
+
     public static Player INSTANCE = null;
 
 	// Use this for initialization
@@ -23,6 +26,9 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if (health <= 0)
+        {
+            //die
+        }
 	}
 }
