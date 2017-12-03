@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4156070098480020}
   - component: {fileID: 50607573757445394}
-  - component: {fileID: 114219002709705494}
   - component: {fileID: 114840977613469654}
   - component: {fileID: 114410029638443412}
   - component: {fileID: 82774882533290032}
@@ -86,8 +85,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358983013995746}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -6.19, y: 3, z: 0.020199712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.19, y: -2.28, z: 0.020199712}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4796327599604646}
@@ -277,17 +276,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114219002709705494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1358983013995746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11b9951c47a79ae4aac437bb549a244a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114410029638443412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -303,7 +291,7 @@ MonoBehaviour:
   maxSpeed: 10
   jumpStrength: 350
   jumpCD: 0.5
-  distance: 2
+  distance: 1.5
   jumpAudio: {fileID: 8300000, guid: d2ea669996afabe4ab7ba35dbb1a0e25, type: 3}
   rotationSpeed: 100
   filter:
@@ -342,6 +330,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9b219fd6823d648a3f793373299bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathClip: {fileID: 8300000, guid: bcfd07265fb53364dbe366d89924aacf, type: 3}
+  deathParticles: {fileID: 1307997734163704, guid: db973b92d2d1f0944b1af036cb68fb4b,
+    type: 2}
 --- !u!212 &212781732567001884
 SpriteRenderer:
   m_ObjectHideFlags: 1
