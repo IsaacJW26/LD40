@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MonoBehaviour
+{
     public float moveSpeed = 1f;
     public float maxSpeed = 10f;
 
@@ -28,17 +28,16 @@ public class PlayerMovement : MonoBehaviour {
     SpriteRenderer sprite;
     Animator anim;
 
-	// Use this for initialization
-	void Start ()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         jumpStart = -jumpCD;
         sprite = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         Debug.DrawRay(transform.position, Vector2.down * distance, Color.red);
 
@@ -79,9 +78,9 @@ public class PlayerMovement : MonoBehaviour {
         //horizontal motion
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
+        //Only accelerate if velocity is less than max speed
         if (Mathf.Abs(rb.velocity.x) < maxSpeed)
         {
-            Debug.Log("under " + Mathf.Abs(rb.velocity.x) + " ms " + maxSpeed);
             rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
         }
         else
@@ -90,17 +89,17 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
         }
 
-        //reset rotation
+        //reset rotation of player when knocked over
         if (transform.eulerAngles.z > ROT_THRESH && transform.eulerAngles.z < 360f - ROT_THRESH)
         {
-            //Debug.Log(Mathf.Abs(transform.localEulerAngles.z));
+            Debug.Log(Mathf.Abs(transform.eulerAngles.z / 180f));
             if ((transform.eulerAngles.z) < 180f)
             {
-                rb.MoveRotation(transform.eulerAngles.z - rotationSpeed);
+                rb.AddTorque(-rotationSpeed * Mathf.Abs(transform.eulerAngles.z / 180f));
             }
             else
             {
-                rb.MoveRotation(transform.eulerAngles.z + rotationSpeed);
+                rb.AddTorque(rotationSpeed * Mathf.Abs((180 - transform.eulerAngles.z) / 180f));
             }
         }
     }
