@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Reset Rotation")]
     public float rotationSpeed;
-    public const float ROT_THRESH = 5f;
+    public const float ROT_THRESH = 15f;
+    public const float ROT_SPEED_THRESH = 200f;
 
     Rigidbody2D rb;
 
@@ -92,14 +93,27 @@ public class PlayerMovement : MonoBehaviour
         //reset rotation of player when knocked over
         if (transform.eulerAngles.z > ROT_THRESH && transform.eulerAngles.z < 360f - ROT_THRESH)
         {
-            Debug.Log(Mathf.Abs(transform.eulerAngles.z / 180f));
+            //Debug.Log(rb.angularVelocity);
+            //Debug.Log(Mathf.Abs(transform.eulerAngles.z));
+            float rotationAmount = 0;
             if ((transform.eulerAngles.z) < 180f)
             {
-                rb.AddTorque(-rotationSpeed * Mathf.Abs(transform.eulerAngles.z / 180f));
+                rotationAmount = Mathf.Abs(transform.eulerAngles.z / 180f);
+                if (rb.angularVelocity > rotationAmount * -ROT_SPEED_THRESH)
+                {
+                    rb.AddTorque(-rotationSpeed * rotationAmount);
+                    Debug.Log(rotationAmount);
+                }
             }
             else
             {
-                rb.AddTorque(rotationSpeed * Mathf.Abs((180 - transform.eulerAngles.z) / 180f));
+                rotationAmount = Mathf.Abs((360f - transform.eulerAngles.z) / 180f);
+
+                if (rb.angularVelocity < rotationAmount * ROT_SPEED_THRESH)
+                {
+                    rb.AddTorque(rotationSpeed * rotationAmount);
+                    Debug.Log(Mathf.Abs((360f - transform.eulerAngles.z) / 180f));
+                }
             }
         }
     }
