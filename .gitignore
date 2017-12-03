@@ -3,6 +3,7 @@
 # =============== #
 Temp/
 Library/
+Library
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -33,4 +34,5 @@ Thumbs.db
 # ======== #
 # My files #
 # ======== #
-Builds/
+Builds/debug.log
+debug.log

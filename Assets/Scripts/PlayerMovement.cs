@@ -5,28 +5,36 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float moveSpeed = 1f;
+    public float maxSpeed = 10f;
 
     [Header("Jumping")]
     public float jumpStrength;
     public float jumpCD;
     [Tooltip("Minimun distance between object and player")]
     public float distance;
+    public AudioClip jumpAudio;
 
     float jumpStart;
 
-    Rigidbody2D rb;
+    [Header("Reset Rotation")]
+    public float rotationSpeed;
+    public const float ROT_THRESH = 5f;
 
+    Rigidbody2D rb;
 
     public ContactFilter2D filter;
 
     Rigidbody2D hitrb;
+    SpriteRenderer sprite;
+    Animator anim;
 
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
         jumpStart = -jumpCD;
-
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        anim = GetComponentInChildren<Animator>();
     }
 	
 	// Update is called once per frame
@@ -34,19 +42,34 @@ public class PlayerMovement : MonoBehaviour {
     {
         Debug.DrawRay(transform.position, Vector2.down * distance, Color.red);
 
-
-
+        //jump
         if (Input.GetButtonDown("Jump") && jumpStart < Time.time && canJump(out hitrb))
         {
             Vector3 dir = new Vector3(0, jumpStrength, 0);
-
+            GetComponent<PlayerAudio>().Play(jumpAudio, 0.1f);
             jumpStart = Time.time + jumpCD;
-            rb.AddForce((dir * moveSpeed));
+            rb.AddForce((dir));
             if (hitrb != null)
             {
-                hitrb.AddForce((-dir * moveSpeed) * hitrb.mass);
+                hitrb.AddForce((-dir) * hitrb.mass);
             }
+        }
 
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01f)
+        {
+            anim.SetBool("isRunning", true);
+            if (Input.GetAxis("Horizontal") < 0f)
+            {
+                sprite.flipX = true;
+            }
+            else
+            {
+                sprite.flipX = false;
+            }
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
         }
     }
 
@@ -56,9 +79,30 @@ public class PlayerMovement : MonoBehaviour {
         //horizontal motion
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
-        rb.AddForce((dir * moveSpeed));
+        if (Mathf.Abs(rb.velocity.x) < maxSpeed)
+        {
+            Debug.Log("under " + Mathf.Abs(rb.velocity.x) + " ms " + maxSpeed);
+            rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            dir.x = -Mathf.Sign(rb.velocity.x);
+            rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
+        }
 
-
+        //reset rotation
+        if (transform.eulerAngles.z > ROT_THRESH && transform.eulerAngles.z < 360f - ROT_THRESH)
+        {
+            //Debug.Log(Mathf.Abs(transform.localEulerAngles.z));
+            if ((transform.eulerAngles.z) < 180f)
+            {
+                rb.MoveRotation(transform.eulerAngles.z - rotationSpeed);
+            }
+            else
+            {
+                rb.MoveRotation(transform.eulerAngles.z + rotationSpeed);
+            }
+        }
     }
 
 
@@ -67,7 +111,7 @@ public class PlayerMovement : MonoBehaviour {
         bool jump = false;
         hit = null;
 
-        RaycastHit2D[] results = new RaycastHit2D[10];
+        RaycastHit2D[] results = new RaycastHit2D[1];
         if (Physics2D.Raycast(transform.position, Vector2.down, filter, results, distance) > 0)
         {
             jump = true;
