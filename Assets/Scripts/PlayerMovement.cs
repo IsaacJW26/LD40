@@ -93,16 +93,14 @@ public class PlayerMovement : MonoBehaviour
         //reset rotation of player when knocked over
         if (transform.eulerAngles.z > ROT_THRESH && transform.eulerAngles.z < 360f - ROT_THRESH)
         {
-            //Debug.Log(rb.angularVelocity);
-            //Debug.Log(Mathf.Abs(transform.eulerAngles.z));
             float rotationAmount = 0;
+            //rotate towards upright position with decreasing speeds
             if ((transform.eulerAngles.z) < 180f)
             {
                 rotationAmount = Mathf.Abs(transform.eulerAngles.z / 180f);
                 if (rb.angularVelocity > rotationAmount * -ROT_SPEED_THRESH)
                 {
                     rb.AddTorque(-rotationSpeed * rotationAmount);
-                    Debug.Log(rotationAmount);
                 }
             }
             else
@@ -112,7 +110,6 @@ public class PlayerMovement : MonoBehaviour
                 if (rb.angularVelocity < rotationAmount * ROT_SPEED_THRESH)
                 {
                     rb.AddTorque(rotationSpeed * rotationAmount);
-                    Debug.Log(Mathf.Abs((360f - transform.eulerAngles.z) / 180f));
                 }
             }
         }
