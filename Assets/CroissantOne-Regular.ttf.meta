@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 26722023ea4004c4e9968f89cebd4d46
+timeCreated: 1512287086
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Croissant One
+  fontNames:
+  - Croissant One
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
