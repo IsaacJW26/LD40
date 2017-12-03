@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
-
+public class PlayerMovement : MonoBehaviour
+{
     public float moveSpeed = 1f;
     public float maxSpeed = 10f;
 
@@ -18,7 +18,8 @@ public class PlayerMovement : MonoBehaviour {
 
     [Header("Reset Rotation")]
     public float rotationSpeed;
-    public const float ROT_THRESH = 5f;
+    public const float ROT_THRESH = 15f;
+    public const float ROT_SPEED_THRESH = 200f;
 
     Rigidbody2D rb;
 
@@ -28,17 +29,16 @@ public class PlayerMovement : MonoBehaviour {
     SpriteRenderer sprite;
     Animator anim;
 
-	// Use this for initialization
-	void Start ()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         jumpStart = -jumpCD;
         sprite = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         Debug.DrawRay(transform.position, Vector2.down * distance, Color.red);
 
@@ -79,9 +79,9 @@ public class PlayerMovement : MonoBehaviour {
         //horizontal motion
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
 
+        //Only accelerate if velocity is less than max speed
         if (Mathf.Abs(rb.velocity.x) < maxSpeed)
         {
-            Debug.Log("under " + Mathf.Abs(rb.velocity.x) + " ms " + maxSpeed);
             rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
         }
         else
@@ -90,17 +90,30 @@ public class PlayerMovement : MonoBehaviour {
             rb.AddForce(dir * moveSpeed * Time.fixedDeltaTime);
         }
 
-        //reset rotation
+        //reset rotation of player when knocked over
         if (transform.eulerAngles.z > ROT_THRESH && transform.eulerAngles.z < 360f - ROT_THRESH)
         {
-            //Debug.Log(Mathf.Abs(transform.localEulerAngles.z));
+            //Debug.Log(rb.angularVelocity);
+            //Debug.Log(Mathf.Abs(transform.eulerAngles.z));
+            float rotationAmount = 0;
             if ((transform.eulerAngles.z) < 180f)
             {
-                rb.MoveRotation(transform.eulerAngles.z - rotationSpeed);
+                rotationAmount = Mathf.Abs(transform.eulerAngles.z / 180f);
+                if (rb.angularVelocity > rotationAmount * -ROT_SPEED_THRESH)
+                {
+                    rb.AddTorque(-rotationSpeed * rotationAmount);
+                    Debug.Log(rotationAmount);
+                }
             }
             else
             {
-                rb.MoveRotation(transform.eulerAngles.z + rotationSpeed);
+                rotationAmount = Mathf.Abs((360f - transform.eulerAngles.z) / 180f);
+
+                if (rb.angularVelocity < rotationAmount * ROT_SPEED_THRESH)
+                {
+                    rb.AddTorque(rotationSpeed * rotationAmount);
+                    Debug.Log(Mathf.Abs((360f - transform.eulerAngles.z) / 180f));
+                }
             }
         }
     }
