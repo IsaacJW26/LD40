@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour
     Vector3 target;
     [SerializeField]
     [Range(1f, 50f)]
-    float speed;
+    float speed = 20f;
 
 	// Use this for initialization
 	void Start ()

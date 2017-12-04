@@ -6,9 +6,9 @@ public class TreasureMagnet : MonoBehaviour
 {
 
     //maximum radius of attraction
-    public const float THRESHOLD = 20f;
+    public const float THRESHOLD = 10f;
 
-    public const float magnitude = 15f;
+    public const float magnitude = 25f;
     Rigidbody2D rb;
     Rigidbody2D playerrb;
     Vector3 dir;
@@ -32,13 +32,13 @@ public class TreasureMagnet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate ()
+    void FixedUpdate()
     {
         //distance between player and this
         dist = Vector3.Distance(Player.INSTANCE.transform.position, transform.position);
 
         //if player is within threshold
-        if (dist < THRESHOLD)
+        if (dist < THRESHOLD && !Player.INSTANCE.IsDead())
         {
             //gets direction vector towards player
             dir = Vector3.Normalize(Player.INSTANCE.transform.position - transform.position);
@@ -48,20 +48,17 @@ public class TreasureMagnet : MonoBehaviour
             rb.AddForce(dir * magnitude * rb.mass * playerrb.mass / Mathf.Pow(dist, 2f));
             playerrb.AddForce(-dir * magnitude * playerrb.mass * rb.mass / Mathf.Pow(dist, 2f));
         }
-        //when it is out of range of player
-        //{
-            Debug.DrawRay(transform.position, Vector2.down * FLOATTHRESH);
 
-            //when there is nothing below
-            if (Physics2D.Raycast(transform.position, Vector2.down, filter, results, FLOATTHRESH) > 0)
-            {
-                rb.AddForce(Vector3.up * floatSpeed);
-            }
-            //when there is something below
-            else
-            {
-                rb.AddForce(Vector3.down * floatSpeed);
-            }
-        //}
-	}
+        Debug.DrawRay(transform.position, Vector2.down * FLOATTHRESH);
+
+        if (Physics2D.Raycast(transform.position, Vector2.down, filter, results, FLOATTHRESH) > 0)
+        {
+            rb.AddForce(Vector3.up * floatSpeed);
+        }
+        //when there is something below
+        else
+        {
+            rb.AddForce(Vector3.down * floatSpeed);
+        }
+    }
 }
