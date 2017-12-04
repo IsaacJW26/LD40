@@ -12,14 +12,15 @@ public class DoorSwitch : MonoBehaviour {
     private int totalCoins = 0;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         //print("cutoff:" + transform.parent.position.x);
-        totalCoins = GameObject.Find("coins").transform.childCount;
-
+        //totalCoins = GameObject.Find("coins").transform.childCount;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         //close the door  behind you!
 		if (DoorClosed == 1)
         {

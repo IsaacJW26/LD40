@@ -60,17 +60,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01f)
         {
+            anim.SetBool("isRunning", true);
+
             var emision = runParticles.emission;
             if (canJump(out hitrb))
             {
-                anim.SetBool("isRunning", true);
                 emision.enabled = true;
             }
             else
             {
                 emision.enabled = false;
             }
-            
+
             if (Input.GetAxis("Horizontal") < 0f)
             {
                 sprite.flipX = true;
