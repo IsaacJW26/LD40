@@ -9,7 +9,7 @@ public class BarScript : MonoBehaviour {
     private float fillAmount1, fillAmount2;
 
     [SerializeField]
-    private Image content1,content2;
+    private Image content1, content2;
     
 
 	// Use this for initialization

@@ -5,13 +5,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public static float health = 100;
+    public static float health = 100f;
     public static float backpack = 0;
 
     public static Player INSTANCE = null;
 
-	// Use this for initialization
-	void Awake ()
+
+    public AudioClip deathClip;
+    public GameObject deathParticles;
+
+    bool isDead;
+
+    void Awake ()
     {
         if (INSTANCE == null)
         {
@@ -21,11 +26,27 @@ public class Player : MonoBehaviour
         {
             DestroyImmediate(gameObject);
         }
+        health = 100f;
+
+        isDead = false;
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
+		if (health <= 0 && !isDead)
+        {
+            isDead = true;
+            AudioSource.PlayClipAtPoint(deathClip, transform.position);
+            Instantiate(deathParticles, transform.position, Quaternion.identity);
+            GameManager.INSTANCE.RestartLevel();
 
+            print("ded");
+            gameObject.SetActive(false);
+        }
 	}
+
+    public bool IsDead()
+    {
+        return isDead;
+    }
 }
