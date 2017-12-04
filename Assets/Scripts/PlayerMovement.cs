@@ -29,12 +29,15 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer sprite;
     Animator anim;
 
+    ParticleSystem runParticles;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         jumpStart = -jumpCD;
         sprite = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
+        runParticles = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -57,7 +60,17 @@ public class PlayerMovement : MonoBehaviour
 
         if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.01f)
         {
-            anim.SetBool("isRunning", true);
+            var emision = runParticles.emission;
+            if (canJump(out hitrb))
+            {
+                anim.SetBool("isRunning", true);
+                emision.enabled = true;
+            }
+            else
+            {
+                emision.enabled = false;
+            }
+            
             if (Input.GetAxis("Horizontal") < 0f)
             {
                 sprite.flipX = true;
@@ -71,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
         }
+
+
     }
 
     //60 times a second
