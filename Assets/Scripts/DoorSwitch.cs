@@ -10,16 +10,19 @@ public class DoorSwitch : MonoBehaviour {
     private int treasureCount = 0;
     private int coinIndex = 0;
     private int totalCoins = 0;
+    private CollectCoins collectScript;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         //print("cutoff:" + transform.parent.position.x);
-        totalCoins = GameObject.Find("coins").transform.childCount;
-
+        //totalCoins = GameObject.Find("coins").transform.childCount;
+        collectScript = GetComponentInChildren<CollectCoins>();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         //close the door  behind you!
 		if (DoorClosed == 1)
         {
@@ -38,11 +41,13 @@ public class DoorSwitch : MonoBehaviour {
         //count up all the treasures u collected
         if (DoorClosed == 2)
         {
+            /*
             Transform child;
             if (coinIndex < totalCoins)
             {
                 child = GameObject.Find("coins").transform.GetChild(coinIndex);
                 //print(child.position.x);
+                
                 if (child.position.x >= transform.parent.position.x)
                 {
 
@@ -55,8 +60,17 @@ public class DoorSwitch : MonoBehaviour {
                 {
                     coinIndex++;
                 }
+                
             }
             //show the result!!
+
+            */
+            if (collectScript.GetTreasure().Count > 0)
+            {
+                TreasureMagnet temp = collectScript.GetTreasure().Dequeue();
+                treasureCount += temp.treasureValue;
+                Destroy(temp.gameObject);
+            }
             else
             {
                 DoorClosed = 3;
