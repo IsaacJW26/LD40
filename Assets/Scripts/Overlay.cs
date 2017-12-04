@@ -10,18 +10,16 @@ public class Overlay : MonoBehaviour {
     public Text text;
 
     // Use this for initialization
-    void Start () {
-        print("hello");
+    void Start ()
+    {
         im.GetComponent<CanvasRenderer>().SetAlpha(0f);
         text.GetComponent<CanvasRenderer>().SetAlpha(0f);
-        print(im);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if(Player.health <= 0)
         {
-            print("player is dying");
             im.GetComponent<CanvasRenderer>().SetAlpha(im.GetComponent<CanvasRenderer>().GetAlpha() + 0.03f);
             text.GetComponent<CanvasRenderer>().SetAlpha(text.GetComponent<CanvasRenderer>().GetAlpha() + 0.03f);
         }

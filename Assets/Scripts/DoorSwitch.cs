@@ -28,7 +28,7 @@ public class DoorSwitch : MonoBehaviour {
         {
 
             distance += Time.deltaTime * 2;
-            if (distance <= 4)
+            if (distance <= 6)
             {
                 this.transform.parent.GetChild(1).Translate(Vector3.down * Time.deltaTime * 2);
             }
@@ -68,8 +68,11 @@ public class DoorSwitch : MonoBehaviour {
             if (collectScript.GetTreasure().Count > 0)
             {
                 TreasureMagnet temp = collectScript.GetTreasure().Dequeue();
-                treasureCount += temp.treasureValue;
-                Destroy(temp.gameObject);
+                if (temp != null)
+                {
+                    treasureCount += temp.treasureValue;
+                    Destroy(temp.gameObject);
+                }
             }
             else
             {
@@ -85,7 +88,7 @@ public class DoorSwitch : MonoBehaviour {
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            print(this.transform.parent.GetChild(1).gameObject.name);
+            //print(this.transform.parent.GetChild(1).gameObject.name);
             DoorClosed = 1;
         }
     }

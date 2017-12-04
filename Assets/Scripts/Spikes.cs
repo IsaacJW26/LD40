@@ -20,8 +20,6 @@ public class Spikes : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.gameObject);
-
         if (other.gameObject.CompareTag("Player"))
         {
             Player.health = 0;

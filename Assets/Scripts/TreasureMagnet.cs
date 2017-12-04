@@ -6,7 +6,7 @@ public class TreasureMagnet : MonoBehaviour
 {
 
     //maximum radius of attraction
-    public const float THRESHOLD = 10f;
+    public const float THRESHOLD = 15f;
 
     public const float magnitude = 50f;
     Rigidbody2D rb;
@@ -18,7 +18,7 @@ public class TreasureMagnet : MonoBehaviour
     public ContactFilter2D filter;
 
     //distance to float above other colliders
-    public const float FLOATTHRESH = 1.5f;
+    public const float FLOATTHRESH = 1.9f;
 
     public float floatSpeed;
 

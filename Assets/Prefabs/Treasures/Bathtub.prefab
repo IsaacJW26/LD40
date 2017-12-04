@@ -53,7 +53,7 @@ Transform:
   m_GameObject: {fileID: 1603102541475640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 40.48, y: -5.03, z: -0.16804826}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.151716, y: 1.151716, z: 1.151716}
   m_Children:
   - {fileID: 4636103116530382}
   m_Father: {fileID: 0}
@@ -83,7 +83,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.3
+  m_Mass: 0.5
   m_LinearDrag: 0.1
   m_AngularDrag: 0.1
   m_GravityScale: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   floatSpeed: 0.01
-  treasureValue: 5
+  treasureValue: 10
 --- !u!212 &212274210833757236
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -177,7 +177,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: b3f33e3dc05fd8142aebc7cccace73a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

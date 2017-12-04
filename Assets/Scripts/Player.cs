@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
             Instantiate(deathParticles, transform.position, Quaternion.identity);
             GameManager.INSTANCE.RestartLevel();
 
-            print("ded");
             gameObject.SetActive(false);
         }
 	}
