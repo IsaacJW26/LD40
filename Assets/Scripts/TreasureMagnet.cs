@@ -8,7 +8,7 @@ public class TreasureMagnet : MonoBehaviour
     //maximum radius of attraction
     public const float THRESHOLD = 10f;
 
-    public const float magnitude = 25f;
+    public const float magnitude = 50f;
     Rigidbody2D rb;
     Rigidbody2D playerrb;
     Vector3 dir;
@@ -21,6 +21,8 @@ public class TreasureMagnet : MonoBehaviour
     public const float FLOATTHRESH = 1.5f;
 
     public float floatSpeed;
+
+    public int treasureValue = 1;
 
     RaycastHit2D[] results;
 

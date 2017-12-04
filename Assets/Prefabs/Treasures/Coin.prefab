@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33775679274601290}
   - component: {fileID: 23707080009346380}
   m_Layer: 0
-  m_Name: Coin
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,3 +185,4 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   floatSpeed: 0.01
+  treasureValue: 1
