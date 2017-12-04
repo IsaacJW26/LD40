@@ -249,6 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpAmount: 500
+  lavaParticles: {fileID: 1581186634732530, guid: 1b36665bee0bb7748ba110d708ff6baf,
+    type: 2}
 --- !u!212 &212302042970292846
 SpriteRenderer:
   m_ObjectHideFlags: 1

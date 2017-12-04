@@ -5079,12 +5079,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114092293503936412, guid: 413fe18de48094d4581613f50965127f,
-        type: 2}
-      propertyPath: lavaParticles
-      value: 
-      objectReference: {fileID: 1581186634732530, guid: 1b36665bee0bb7748ba110d708ff6baf,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 413fe18de48094d4581613f50965127f, type: 2}
   m_IsPrefabParent: 0
